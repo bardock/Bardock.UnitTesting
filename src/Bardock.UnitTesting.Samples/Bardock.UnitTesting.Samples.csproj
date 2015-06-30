@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\xunit.runner.visualstudio.2.0.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\..\packages\xunit.runner.visualstudio.2.0.0\build\net20\xunit.runner.visualstudio.props')" />
+  <Import Project="..\..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props" Condition="Exists('..\..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F27675F1-5FEA-4E8C-9900-AB7C6EC21E00}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bardock.UnitTesting.Samples</RootNamespace>
+    <AssemblyName>Bardock.UnitTesting.Samples</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>71c16689</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper.Net4, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Bardock.Utils, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Bardock.Utils.2.4.1\lib\net45\Bardock.Utils.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Effort, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a46696d54971e6d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Effort.EF6.1.1.4\lib\net45\Effort.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq, Version=4.2.1502.911, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Moq.4.2.1502.0911\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NMemory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a46696d54971e6d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\NMemory.1.0.1\lib\net45\NMemory.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture, Version=3.30.7.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoFixture.3.30.7\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture.AutoMoq, Version=3.30.6.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoFixture.AutoMoq.3.30.6\lib\net40\Ploeh.AutoFixture.AutoMoq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture.Xunit2, Version=3.30.7.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoFixture.Xunit2.3.30.7\lib\net45\Ploeh.AutoFixture.Xunit2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ploeh.SemanticComparison, Version=3.30.7.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SemanticComparison.3.30.7\lib\net40\Ploeh.SemanticComparison.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.assert, Version=2.0.0.2929, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.assert.2.0.0\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.assert.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.core, Version=2.0.0.2929, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.extensibility.core.2.0.0\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fixtures\Attributes\DefaultDataAttribute.cs" />
+    <Compile Include="Fixtures\Attributes\InlineDefaultDataAttribute.cs" />
+    <Compile Include="Fixtures\Customizations\DataContextCustomization.cs" />
+    <Compile Include="Fixtures\Customizations\DataContextWrapperCustomization.cs" />
+    <Compile Include="Fixtures\Customizations\DefaultCustomization.cs" />
+    <Compile Include="Fixtures\DataLoaders\AddressesDataLoader.cs" />
+    <Compile Include="Fixtures\DataLoaders\CountriesDataLoader.cs" />
+    <Compile Include="Fixtures\DataLoaders\CustomersDataLoader.cs" />
+    <Compile Include="Fixtures\DataLoaders\LoaderFixture.cs" />
+    <Compile Include="SUT\DTOs\CustomerUpdate.cs" />
+    <Compile Include="SUT\DTOs\CustomerCreate.cs" />
+    <Compile Include="SUT\Entities\Country.cs" />
+    <Compile Include="SUT\Infra\Bootstrapper.cs" />
+    <Compile Include="SUT\Infra\DataContext.cs" />
+    <Compile Include="SUT\Infra\IAuthService.cs" />
+    <Compile Include="SUT\Infra\IMailer.cs" />
+    <Compile Include="SUT\Infra\SmtpMailer.cs" />
+    <Compile Include="SUT\Managers\BaseManager.cs" />
+    <Compile Include="SUT\Managers\CustomerLogManager.cs" />
+    <Compile Include="SUT\Managers\CustomerManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SUT\Entities\Address.cs" />
+    <Compile Include="SUT\Entities\Customer.cs" />
+    <Compile Include="SUT\Entities\Order.cs" />
+    <Compile Include="SUT\Entities\Product.cs" />
+    <Compile Include="Tests\Managers\CustomerManagerTests.cs" />
+    <Compile Include="Tests\Mocks\MailerMock.cs" />
+    <Compile Include="Tests\Mocks\MailerMoqs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Bardock.UnitTesting.AutoFixture.AutoMapper\Bardock.UnitTesting.AutoFixture.AutoMapper.csproj">
+      <Project>{a0f2e8ad-bb91-4628-9590-63a745673896}</Project>
+      <Name>Bardock.UnitTesting.AutoFixture.AutoMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bardock.UnitTesting.AutoFixture.Data\Bardock.UnitTesting.AutoFixture.Data.csproj">
+      <Project>{653a0cf2-97c4-4d01-811b-3e293bebd829}</Project>
+      <Name>Bardock.UnitTesting.AutoFixture.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bardock.UnitTesting.AutoFixture.EF\Bardock.UnitTesting.AutoFixture.EF.csproj">
+      <Project>{83caf1e2-bb1f-468c-91e1-371974e6e070}</Project>
+      <Name>Bardock.UnitTesting.AutoFixture.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bardock.UnitTesting.AutoFixture.Xunit2.AutoMapper\Bardock.UnitTesting.AutoFixture.Xunit2.AutoMapper.csproj">
+      <Project>{ce186cfc-632e-48af-9d80-30837fc6b8e5}</Project>
+      <Name>Bardock.UnitTesting.AutoFixture.Xunit2.AutoMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bardock.UnitTesting.AutoFixture.Xunit2\Bardock.UnitTesting.AutoFixture.Xunit2.csproj">
+      <Project>{24c38686-3bab-48e0-bf88-ab15da49680e}</Project>
+      <Name>Bardock.UnitTesting.AutoFixture.Xunit2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bardock.UnitTesting.AutoFixture\Bardock.UnitTesting.AutoFixture.csproj">
+      <Project>{a0f7f7d4-a180-4a7b-9199-1bc636381b91}</Project>
+      <Name>Bardock.UnitTesting.AutoFixture</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bardock.UnitTesting.AutoFixture.Xunit2.Data\Bardock.UnitTesting.AutoFixture.Xunit2.Data.csproj">
+      <Project>{e9bbd660-ff0b-45c5-94de-99cfb83a185b}</Project>
+      <Name>Bardock.UnitTesting.AutoFixture.Xunit2.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bardock.UnitTesting.Data.EF.Effort.DataLoaders\Bardock.UnitTesting.Data.EF.Effort.DataLoaders.csproj">
+      <Project>{b0f8231c-0f0b-4a2d-940e-5303344848ee}</Project>
+      <Name>Bardock.UnitTesting.Data.EF.Effort.DataLoaders</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bardock.UnitTesting.Data.EF\Bardock.UnitTesting.Data.EF.csproj">
+      <Project>{19961fb9-5e3b-4e6c-b03a-5573d80ff891}</Project>
+      <Name>Bardock.UnitTesting.Data.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bardock.UnitTesting.Data\Bardock.UnitTesting.Data.csproj">
+      <Project>{df4a40f2-af0c-4107-9a1c-35952555f3fa}</Project>
+      <Name>Bardock.UnitTesting.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props'))" />
+    <Error Condition="!Exists('..\..\packages\xunit.runner.visualstudio.2.0.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.visualstudio.2.0.0\build\net20\xunit.runner.visualstudio.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
