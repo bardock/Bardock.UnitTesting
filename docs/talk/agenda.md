@@ -12,7 +12,7 @@ Bardock Unit Testing Framework
 	* StringDataAnnotationsCustomization
 	* MapMembersCustomization
 	* Data
-		* PersistedEntityAttribute -> PersistedAttribute
+		* PersistedAttribute
 	* EF
 		* IgnoreEntityNavigationPropsCustomization
 		* IgnoreEntityKeysCustomization

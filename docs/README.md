@@ -1,5 +1,7 @@
 # Documentation
 
+*TODO*
+
 ## Introductory Talk
 
 Written in [markdown](http://daringfireball.net/projects/markdown/syntax) (slideshow by [remark](https://github.com/gnab/remark)).
@@ -12,4 +14,4 @@ Written in [markdown](http://daringfireball.net/projects/markdown/syntax) (slide
 
 ### Contents
 
-If you want to navigate the content without running the slideshow you can go directly to the [Agenda](./agenda.md)
+If you want to navigate the content without running the slideshow you can go directly to the [Agenda](./talk/agenda.md)
