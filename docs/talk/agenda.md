@@ -5,6 +5,7 @@ Bardock Unit Testing Framework
 
 * Third parties
 	* [xUnit](./thirdparties_xunit.md)
+	* [Fluent Assertions](./thirdparties_fluentassertions.md)
 * Fakes
 	* DB
 	* Cache
