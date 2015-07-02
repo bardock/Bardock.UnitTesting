@@ -43,8 +43,8 @@
       <HintPath>..\..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Bardock.Utils, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Bardock.Utils.2.4.1\lib\net45\Bardock.Utils.dll</HintPath>
+    <Reference Include="Bardock.Utils, Version=2.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Bardock.Utils.2.6.0\lib\net45\Bardock.Utils.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Effort, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a46696d54971e6d, processorArchitecture=MSIL">
