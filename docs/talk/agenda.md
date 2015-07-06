@@ -11,12 +11,12 @@ template: agenda-header
 
 * Third parties
 	* [xUnit](./thirdparties_xunit.md)
+	* [Fluent Assertions](./thirdparties_fluentassertions.md)
 	* [Moq](./thirdparties_moq.md)
 	* [Autofixture](./thirdparties_autofixture.md)
-	* [Fluent Assertions](./thirdparties_fluentassertions.md)
 * Fakes
-	* DB
-	* Cache
+	* [DB](./fakes_db.md)
+	* [Cache](./fakes_cache.md)
 
 ---
 template: agenda-header
@@ -24,11 +24,12 @@ template: agenda-header
 ### Agenda
 
 * Extensions & Integrations
-	* StringDataAnnotationsCustomization
-	* MapMembersCustomization
-	* Data
+	* [Autofixture](./exts-int_autofixture.md)
+		* MapMembersCustomization
+		* StringDataAnnotationsCustomization
+	* [Data](./exts-int_data.md)
 		* PersistedAttribute
-	* EF
+	* [EF](./exts-int-ef.md)
 		* IgnoreEntityNavigationPropsCustomization
 		* IgnoreEntityKeysCustomization
 		* EntityConfigurationCustomization

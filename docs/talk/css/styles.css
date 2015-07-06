@@ -1,0 +1,8 @@
+.autofixtureimage {
+	display: block;
+	text-align: right;
+}
+.autofixtureimage  img {
+	position: relative;
+	top: -90px;
+}
