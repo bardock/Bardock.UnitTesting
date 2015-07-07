@@ -33,4 +33,4 @@ template: agenda-header
 		* IgnoreEntityNavigationPropsCustomization
 		* IgnoreEntityKeysCustomization
 		* EntityConfigurationCustomization
-* Demo
+* [Demo](./demo.md)
