@@ -8,10 +8,27 @@ template: fluentassertions-header
 
 Fluent Assertions is a set of .NET extension methods that allow you to **more naturally specify the expected outcome of a test**
 
+### Before
+
 ```csharp
-string actual = "ABCDEFGHI";
-actual.Should().StartWith("AB").And.EndWith("HI").And.Contain("EF").And.HaveLength(9);
+string theString = "ABCDEFGHI";
+
+Assert.True(theString.StartsWith("AB"));
+Assert.True(theString.EndsWith("HI"));
+Assert.True(theString.Contains("EF"));
+Assert.Equal(9, theString.Length);
 ```
+
+### After
+
+```csharp
+theString.Should().StartWith("AB").And.EndWith("HI").And.Contain("EF").And.HaveLength(9);
+```
+
+---
+template: fluentassertions-header
+
+## Examples
 
 ```csharp
 IEnumerable collection = new[] { 1, 2, 3 };
