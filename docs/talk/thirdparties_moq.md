@@ -22,8 +22,13 @@ Moq is a **mocking framework for .NET**. It is used in unit testing to **isolate
 
 ---
 template: moq-header
+name: moq-methods-header
+layout: true
 
 ## Methods
+
+---
+template: moq-methods-header
 
 * Basic usage
 ```csharp
@@ -39,9 +44,7 @@ mock.Setup(x => x.DoSomething(It.IsAny<string>()))
 ```
 
 ---
-template: moq-header
-
-## Methods
+template: moq-methods-header
 
 * Throwing when invoked
 ```csharp
