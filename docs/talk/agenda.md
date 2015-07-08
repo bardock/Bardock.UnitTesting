@@ -16,7 +16,6 @@ template: agenda-header
 	* [Autofixture](./thirdparties_autofixture.md)
 * Fakes
 	* [DB](./fakes_db.md)
-	* [Cache](./fakes_cache.md)
 
 ---
 template: agenda-header

@@ -16,6 +16,14 @@ A set of abstractions for unit testing purposes.
 * **IDataContextScope**
 * **IDataContextScopeFactory**
 
+```csharp
+using (var s = _dataContextScopeFactory.CreateDefault())
+{
+    s.Db.Add(new Country() { ID = 1, Name = "Argentina", IsoCode = "AR" });
+	s.Db.Add(new Country() { ID = 2, Name = "Canada", IsoCode = "CA" });
+} // Ending of the scope automatically saves changes and detachs all entities. 
+```
+
 ---
 template: fakes-db-header
 
@@ -51,10 +59,11 @@ Provide functionality for seeding initial data for a table.
 template: fakes-db-header
 
 * CSV
-
-	ProductID,ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued
-	"1","Chai","1","1","10 boxes x 20 bags","18.0000","39","0","10","False"
-	"2","Chang","1","1","24 - 12 oz bottles","19.0000","17","40","25","False"
+```
+	ID,Name,IsoCode
+	"1","Argentina","AR"
+	"2","Canada","CA"
+```
 
 * Typed
 ```csharp
