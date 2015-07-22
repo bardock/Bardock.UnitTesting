@@ -29,10 +29,12 @@ namespace Bardock.UnitTesting.Data.EF.Effort.DataLoaders.Tests.Helpers
             var memberExpression = (MemberExpression)typedExpression.Body;
             var propertyInfo = (PropertyInfo)memberExpression.Member;
 
-            _columns.Add(
-                CreateColumnDescription(
-                    propertyInfo.Name,
-                    propertyInfo.PropertyType));
+            AddColumn(propertyInfo.Name, propertyInfo.PropertyType);
+        }
+
+        public void AddColumn(string columnName, Type columnType)
+        {
+            _columns.Add(CreateColumnDescription(columnName, columnType));
         }
 
         public TableDescription Build()

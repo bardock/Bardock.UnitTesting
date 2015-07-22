@@ -11,19 +11,28 @@ namespace Bardock.UnitTesting.Data.EF.Effort.DataLoaders
 
         public EntityObjectDataLoaderFactory(IDictionary<string, string> bindings)
         {
+            if (bindings == null)
+                throw new ArgumentNullException("bindings");
+
+            if (!bindings.Any())
+                throw new ArgumentException("Parameter bindings cannot be empty", "bindings");
+
             _bindings = bindings;
         }
 
-        public ITableDataLoader CreateTableDataLoader(TableDescription table)
+        public ITableDataLoader CreateTableDataLoader(TableDescription tableDescription)
         {
-            if (!_bindings.ContainsKey(table.Name))
+            if (tableDescription == null)
+                throw new ArgumentNullException("tableDescription");
+
+            if (!_bindings.ContainsKey(tableDescription.Name))
                 return new EmptyTableDataLoader();
 
-            var entry = _bindings.Single(x => x.Key == table.Name);
+            var entry = _bindings.Single(x => x.Key == tableDescription.Name);
 
             return new EntityObjectDataLoaderWrapper(
                 (IEntityDataLoader<object>)Activator.CreateInstance(Type.GetType(entry.Value, throwOnError: false)),
-                table.Columns
+                tableDescription.Columns
             );
         }
 

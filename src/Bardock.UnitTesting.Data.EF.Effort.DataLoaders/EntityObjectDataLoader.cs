@@ -36,8 +36,8 @@ namespace Bardock.UnitTesting.Data.EF.Effort.DataLoaders
 
             _bindings = builder.Build();
 
-            if (_bindings == null || !_bindings.Any())
-                throw new NotValidBindingsException("Bindings null or empty");
+            if (!_bindings.Any())
+                throw new NotValidBindingsException("Bindings empty");
         }
 
         /// <summary>
@@ -51,6 +51,8 @@ namespace Bardock.UnitTesting.Data.EF.Effort.DataLoaders
             get { return Newtonsoft.Json.JsonConvert.SerializeObject(_bindings); }
             set { _bindings = Newtonsoft.Json.JsonConvert.DeserializeObject<IDictionary<string, string>>(value); }
         }
+
+        internal IDictionary<string, string> Bindings { get { return _bindings; } }
 
         /// <summary>
         /// Creates a <see cref="EntityObjectDataLoaderFactory"/>.

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Bardock.UnitTesting.Data.EF.Effort.DataLoaders.Tests.DataLoaders
 {
-    public class ModelDataLoader : IEntityDataLoader<Model>
+    public class TestModelDataLoader : IEntityDataLoader<TestModel>
     {
-        public IEnumerable<Model> GetData()
+        public IEnumerable<TestModel> GetData()
         {
-            yield return new Model()
+            yield return new TestModel()
             {
                 Id = 1,
                 Name = "Test",

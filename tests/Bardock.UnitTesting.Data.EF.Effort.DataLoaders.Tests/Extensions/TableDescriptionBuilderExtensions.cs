@@ -12,5 +12,12 @@ namespace Bardock.UnitTesting.Data.EF.Effort.DataLoaders.Tests.Extensions
             @this.AddColumn(columnSelector);
             return @this;
         }
+
+        public static TableDescriptionBuilder<T> Add<T>(this TableDescriptionBuilder<T> @this, string columnName, Type columnType)
+            where T : class
+        {
+            @this.AddColumn(columnName, columnType);
+            return @this;
+        }
     }
 }
