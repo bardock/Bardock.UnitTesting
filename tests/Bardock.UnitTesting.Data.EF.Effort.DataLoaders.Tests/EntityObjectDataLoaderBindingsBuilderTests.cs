@@ -46,7 +46,7 @@ namespace Bardock.UnitTesting.Data.EF.Effort.DataLoaders.Tests
         }
 
         [Fact]
-        public void Build_EmptyBindings_Empty()
+        public void Build_EmptyBindings_ShouldReturnEmptyBindings()
         {
             // Setup
             var sut = new EntityObjectDataLoader.BindingsBuilder();
