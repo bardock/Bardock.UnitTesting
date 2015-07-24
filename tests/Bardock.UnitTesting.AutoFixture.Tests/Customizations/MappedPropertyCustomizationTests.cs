@@ -120,23 +120,38 @@ namespace Bardock.UnitTesting.AutoFixture.Tests.Customizations
 
         [Theory]
         [AutoData]
-        public void Customize_ValidExpressions_ShouldSucced(
-            MyFixture myFixture,
+        public void Constructor_ValidProperties_ShouldSucced(
             Expression<Func<A, object>> sourceProperty,
             Expression<Func<B, object>> destinationProperty,
             int value)
         {
-            //Setup
-            var sut = new MappedPropertyCustomization<A, B>(sourceProperty, destinationProperty, value);
+            //Exercise
+            var sut = new MappedPropertyCustomization<A, B>(
+                sourceProperty,
+                destinationProperty,
+                value);
 
+            //Verify
+            sut.SourceProperty.Should().Be(sourceProperty);
+            sut.DestinationProperty.Should().Be(destinationProperty);
+            sut.Value.Should().Be(value);
+        }
+
+        [Theory]
+        [AutoData]
+        public void Customize_ValidProperties_ShouldSucced(
+            MyFixture myFixture,
+            MappedPropertyCustomization<A, B> sut)
+        {
             //Exercise
             sut.Customize(myFixture.Fixture);
 
             //Verify
             myFixture.SourcePropertyComposerMock
-                .Verify(x => x.With(sourceProperty, value));
+                .Verify(x => x.With(sut.SourceProperty, sut.Value));
+
             myFixture.DestinationPropertyComposerMock
-                .Verify(x => x.FromFactory(It.Is<Func<Expression<Func<B, object>>>>(f => f() == destinationProperty)));
+                .Verify(x => x.FromFactory(It.Is<Func<Expression<Func<B, object>>>>(f => f() == sut.DestinationProperty)));
         }
     }
 }

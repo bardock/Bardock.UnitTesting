@@ -1,6 +1,6 @@
 ﻿using System;
-using Bardock.Utils.Extensions;
 using System.Linq.Expressions;
+using Bardock.Utils.Extensions;
 using Ploeh.AutoFixture;
 
 namespace OriginSoftware.Kairos.Core.Tests.Fixtures.Customizations
@@ -10,9 +10,11 @@ namespace OriginSoftware.Kairos.Core.Tests.Fixtures.Customizations
     /// </summary>
     public class MappedPropertyCustomization<TSource, TDestination> : ICustomization
     {
-        private Expression<Func<TDestination, object>> _destinationProperty;
-        private Expression<Func<TSource, object>> _sourceProperty;
-        private object _value;
+        public Expression<Func<TDestination, object>> DestinationProperty { get; protected set; }
+
+        public Expression<Func<TSource, object>> SourceProperty { get; protected set; }
+
+        public object Value { get; protected set; }
 
         public MappedPropertyCustomization(
             Expression<Func<TSource, object>> sourceProperty,
@@ -25,15 +27,15 @@ namespace OriginSoftware.Kairos.Core.Tests.Fixtures.Customizations
             if (destinationProperty == null || !(destinationProperty.RemoveConvert() is MemberExpression))
                 throw new ArgumentException("destinationProperty must be a MemberExpression");
 
-            _sourceProperty = sourceProperty;
-            _destinationProperty = destinationProperty;
-            _value = value;
+            SourceProperty = sourceProperty;
+            DestinationProperty = destinationProperty;
+            Value = value;
         }
 
         public void Customize(IFixture fixture)
         {
-            fixture.Customize<TSource>(c => c.With(_sourceProperty, _value));
-            fixture.Register(() => _destinationProperty);
+            fixture.Customize<TSource>(c => c.With(SourceProperty, Value));
+            fixture.Register(() => DestinationProperty);
         }
     }
 }
