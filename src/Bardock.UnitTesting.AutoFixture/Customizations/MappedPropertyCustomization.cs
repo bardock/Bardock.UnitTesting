@@ -8,18 +8,18 @@ namespace OriginSoftware.Kairos.Core.Tests.Fixtures.Customizations
     /// <summary>
     /// Customizes a property for the destination type and customizes the specified value for the source type.
     /// </summary>
-    public class MappedPropertyCustomization<TSource, TDestination> : ICustomization
+    public class MappedPropertyCustomization<TSource, TDestination, TValue> : ICustomization
     {
-        public Expression<Func<TDestination, object>> DestinationProperty { get; protected set; }
+        public Expression<Func<TDestination, TValue>> DestinationProperty { get; protected set; }
 
-        public Expression<Func<TSource, object>> SourceProperty { get; protected set; }
+        public Expression<Func<TSource, TValue>> SourceProperty { get; protected set; }
 
-        public object Value { get; protected set; }
+        public TValue Value { get; protected set; }
 
         public MappedPropertyCustomization(
-            Expression<Func<TSource, object>> sourceProperty,
-            Expression<Func<TDestination, object>> destinationProperty,
-            object value)
+            Expression<Func<TSource, TValue>> sourceProperty,
+            Expression<Func<TDestination, TValue>> destinationProperty,
+            TValue value)
         {
             if (sourceProperty == null || !(sourceProperty.RemoveConvert() is MemberExpression))
                 throw new ArgumentException("sourceProperty must be a MemberExpression");
