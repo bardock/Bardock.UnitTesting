@@ -1,5 +1,5 @@
 set "project=Bardock.UnitTesting.AutoFixture"
-set "localSourcePath=V:\_NuGetPackages"
+set "localSourcePath=\\Origin-10\NuGetPackages"
 set /p version=Version number: 
 
 :: create package
