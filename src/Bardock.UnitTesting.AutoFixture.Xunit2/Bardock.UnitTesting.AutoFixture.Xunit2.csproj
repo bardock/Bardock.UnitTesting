@@ -73,6 +73,7 @@
     <Compile Include="Attributes\MapMembersAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Attributes\InlineNullRegisterAutoDataAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Customizations\MappedPropertyCustomization.cs" />
+    <Compile Include="Customizations\NullRegisterCustomization.cs" />
     <Compile Include="Customizations\StringDataAnnotationsCustomization.cs" />
     <Compile Include="Customizations\MapMembersCustomization.cs">
       <SubType>Code</SubType>
