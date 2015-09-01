@@ -21,6 +21,19 @@ namespace Bardock.UnitTesting.Samples.SUT.Managers
             ICustomerLogManager customerLogManager)
             : base(userName)
         {
+
+            if (db == null)
+                throw new ArgumentNullException("db");
+
+            if (authService == null)
+                throw new ArgumentNullException("authService");
+
+            if (mailer == null)
+                throw new ArgumentNullException("mailer");
+
+            if (customerLogManager == null)
+                throw new ArgumentNullException("customerLogManager");
+
             _db = db;
             _authService = authService;
             _mailer = mailer;

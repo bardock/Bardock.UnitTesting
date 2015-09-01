@@ -279,5 +279,30 @@ namespace Bardock.UnitTesting.Samples.Tests.Managers
 
             customerLogManager.Verify(x => x.LogCreate(e));
         }
+
+
+        [Theory]
+        [InlineUseNull("db")]
+        [InlineUseNull("authService")]
+        [InlineUseNull("mailer")]
+        [InlineUseNull("customerLogManager")]
+        public void Ctor(
+            DataContext db,
+            IAuthService authService,
+            IMailer mailer,
+            ICustomerLogManager customerLogManager, 
+            NullSpecimenDescriptor arg, 
+            IFixture fixture)
+        {
+            // Setup
+            Action act = () => fixture.Create<CustomerManager>();
+
+            // Verify outcome
+            var ex = Assert.Throws<TargetInvocationException>(act);
+            Assert.IsAssignableFrom(typeof(ArgumentNullException), ex.InnerException);
+
+            var argNullEx = (ArgumentNullException)ex.InnerException;
+            Assert.Equal(argNullEx.ParamName, arg.Alias);
+        }
     }
 }

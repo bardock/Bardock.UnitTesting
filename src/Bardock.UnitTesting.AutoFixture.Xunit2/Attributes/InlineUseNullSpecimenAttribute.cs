@@ -1,5 +1,5 @@
 ﻿using Bardock.UnitTesting.AutoFixture.Customizations;
-using Ploeh.AutoFixture;
+using Bardock.UnitTesting.AutoFixture.SpecimenBuilders.Relays;
 using Ploeh.AutoFixture.Xunit2;
 using System;
 using System.Collections.Generic;
@@ -13,28 +13,30 @@ namespace Bardock.UnitTesting.AutoFixture.Xunit2.Attributes
     /// <paramref name="parameterName"/> provided.
     /// Also Customizes the fixture to return a NullRegisterArgument instance with the <paramref name="parameterName"/> provided.
     /// </summary>
-    public abstract class InlineNullRegisterAutoDataAttribute : InlineAutoDataAttribute
+    public abstract class InlineUseNullSpecimenAttribute : InlineAutoDataAndCustomizationsAttribute
     {
         private string _parameterName;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InlineNullRegisterAutoDataAttribute"/> class.
+        /// Initializes a new instance of the <see cref="InlineUseNullSpecimenAttribute"/> class.
         /// Inherits from <see cref="InlineAutoDataAttribute" />
         /// </summary>
         /// <param name="autoDataAttribute">The <see cref="AutoDataAttribute"/> instance that provides auto-generated data specimens.</param>
         /// <param name="parameterName">Name of the null parameter.</param>
         /// <exception cref="ArgumentException">Parameter <paramref name="parameterName"/> cannot be a null or empty string</exception>
-        protected InlineNullRegisterAutoDataAttribute(
+        protected InlineUseNullSpecimenAttribute(
             AutoDataAttribute autoDataAttribute,
-            string parameterName)
-            : base(autoDataAttribute)
+            string parameterName, 
+            params object[] valuesAndCustomizationTypes)
+            : base(
+                autoDataAttribute, 
+                valuesAndCustomizationTypes)
         {
             if (string.IsNullOrWhiteSpace(parameterName))
                 throw new ArgumentException("Parameter 'parameterName' cannot be a null or empty string", "parameterName");
 
             _parameterName = parameterName;
         }
-
 
         /// <summary>
         /// Returns the composition of data to be used to test the theory. Favors the data returned
@@ -59,22 +61,14 @@ namespace Bardock.UnitTesting.AutoFixture.Xunit2.Attributes
             if (parameter == null)
                 throw new InvalidOperationException(string.Format("Parameter '{0}' has not been found on method under test '{1}'. Cannot apply customization for parameter '{0}'", _parameterName, methodUnderTest.Name));
 
-            if (!parameter.ParameterType.IsClass || !parameter.ParameterType.IsInterface)
-                throw new InvalidOperationException(string.Format("Parameter '{0}' type must be a class or an interface on method under test '{1}'. Cannot apply customization for parameter '{0}'", _parameterName, methodUnderTest.Name));
+            if (parameter.ParameterType.IsValueType)
+                throw new InvalidOperationException(string.Format("Parameter '{0}' type must not be a a value type on method under test '{1}'. Cannot apply customization for parameter '{0}'", _parameterName, methodUnderTest.Name));
 
-            // Customize the fixture so it returns a null reference for the given type of the target parameter
-            // Also Customize the fixture so that when a request of a NullRegisterArgument type is issued, it will
-            // return one that has the target parameter name
-            AutoDataAttribute.Fixture
-                .Customize((ICustomization)Activator.CreateInstance(typeof(NullRegisterCustomization<>).MakeGenericType(parameter.ParameterType)))
-                .Customize<NullRegisterArgument>(e => e.With(p => p.Name, _parameterName));
+            this.AutoDataAttribute.Fixture.Customize(new ParameterInfoNullSpecimenCustomization(parameter.ParameterType, parameter.Name));
 
             return base.GetData(methodUnderTest);
         }
     }
 
-    public class NullRegisterArgument
-    {
-        public string Name { get; set; }
-    }
+    
 }
