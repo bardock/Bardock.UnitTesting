@@ -1,4 +1,5 @@
 ﻿using Ploeh.AutoFixture;
+using System;
 using System.Data.Entity;
 
 namespace Bardock.UnitTesting.AutoFixture.EF.Customizations
@@ -12,12 +13,20 @@ namespace Bardock.UnitTesting.AutoFixture.EF.Customizations
     public class EntityFrameworkCustomization<TDbContext> : CompositeCustomization
         where TDbContext : DbContext
     {
+        [Obsolete("Please move over to using EntityFrameworkCustomization(Func<TDbContext> factoryFunc) as this method will be removed in the next release")]
         public EntityFrameworkCustomization()
             : base(
                 new EntityConfigurationCustomization<TDbContext>(),
                 new IgnoreEntityNavigationPropsCustomization<TDbContext>(),
                 new IgnoreEntityKeysCustomization<TDbContext>())
-        {
-        }
+        { }
+
+        public EntityFrameworkCustomization(Func<TDbContext> factoryFunc)
+            : base (
+                new EntityConfigurationCustomization<TDbContext>(factoryFunc),
+                new IgnoreEntityNavigationPropsCustomization<TDbContext>(),
+                new IgnoreEntityKeysCustomization<TDbContext>()
+            )
+        { }
     }
 }

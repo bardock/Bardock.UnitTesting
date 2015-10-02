@@ -2,6 +2,7 @@
 using Bardock.UnitTesting.AutoFixture.SpecimenBuilders;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Kernel;
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
@@ -18,6 +19,29 @@ namespace Bardock.UnitTesting.AutoFixture.EF.SpecimenBuilders
     public class EntityConfigurationSpecimenBuilder<TDbContext> : StringDataAnnotationsSpecimenBuilder
         where TDbContext : DbContext
     {
+        private Lazy<TDbContext> _dbCtx;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntityConfigurationSpecimenBuilder{TDbContext}"/> class.
+        /// </summary>
+        /// <remarks>Obsolete: Please move over to using <see cref="EntityConfigurationSpecimenBuilder(Func<TDbContext> factoryFunc)"/> as this method will be removed in the next release</remarks>
+        [Obsolete("Please move over to using EntityConfigurationSpecimenBuilder(Func<TDbContext> factoryFunc) as this method will be removed in the next release")]
+        public EntityConfigurationSpecimenBuilder()
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntityConfigurationSpecimenBuilder{TDbContext}"/> class.
+        /// </summary>
+        /// <param name="factoryFunc">The factory function to instance a <typeparamref name="TDbContext"/> for reading EF metadata.</param>
+        /// <exception cref="System.ArgumentNullException">factoryFunc</exception>
+        public EntityConfigurationSpecimenBuilder(Func<TDbContext> factoryFunc)
+        {
+            if (factoryFunc == null)
+                throw new ArgumentNullException("factoryFunc");
+
+            _dbCtx = new Lazy<TDbContext>(factoryFunc);
+        }
+
         protected override bool IsValidType(PropertyInfo pi)
         {
             return pi.DeclaringType.IsMappedEntity<TDbContext>();
@@ -44,7 +68,10 @@ namespace Bardock.UnitTesting.AutoFixture.EF.SpecimenBuilders
 
         private EdmProperty GetProperty(PropertyInfo pi, ISpecimenContext context)
         {
-            return ((IObjectContextAdapter)context.Create<TDbContext>())
+            if (_dbCtx == null)
+                _dbCtx = new Lazy<TDbContext>(() => context.Create<TDbContext>());
+
+            return ((IObjectContextAdapter)_dbCtx.Value)
                         .ObjectContext
                         .MetadataWorkspace
                         .GetItemCollection(DataSpace.CSpace)
@@ -52,6 +79,7 @@ namespace Bardock.UnitTesting.AutoFixture.EF.SpecimenBuilders
                         .Cast<EntityType>()
                         .SelectMany(et =>
                             et.Properties
+                                .Where(p => p.DeclaringType.Name == pi.DeclaringType.Name)
                                 .Where(p => p.PrimitiveType.ClrEquivalentType == typeof(string))
                                 .Where(p => p.Name == pi.Name)
                                 .Where(p => p.MaxLength.HasValue))
