@@ -9,7 +9,7 @@ namespace Bardock.UnitTesting.Samples.Fixtures.Attributes
     public class InlineUseNullAttribute : Bardock.UnitTesting.AutoFixture.Xunit2.Attributes.InlineUseNullSpecimenAttribute
     {
         public InlineUseNullAttribute(string parameterName)
-            :base(new DefaultDataAttribute(), parameterName)
+            :base(ct => new DefaultDataAttribute(ct), parameterName)
         {
 
         }

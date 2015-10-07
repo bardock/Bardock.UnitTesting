@@ -25,11 +25,11 @@ namespace Bardock.UnitTesting.AutoFixture.Xunit2.Attributes
         /// <param name="parameterName">Name of the null parameter.</param>
         /// <exception cref="ArgumentException">Parameter <paramref name="parameterName"/> cannot be a null or empty string</exception>
         protected InlineUseNullSpecimenAttribute(
-            AutoDataAttribute autoDataAttribute,
+            Func<Type[], AutoDataAttribute> autoDataAttributeFactoryFunc,
             string parameterName, 
             params object[] valuesAndCustomizationTypes)
             : base(
-                autoDataAttribute, 
+                autoDataAttributeFactoryFunc, 
                 valuesAndCustomizationTypes)
         {
             if (string.IsNullOrWhiteSpace(parameterName))

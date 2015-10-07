@@ -1,7 +1,9 @@
 ﻿using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Xunit2;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Bardock.UnitTesting.AutoFixture.Xunit2.Fixtures.Attributes
 {
@@ -12,13 +14,16 @@ namespace Bardock.UnitTesting.AutoFixture.Xunit2.Fixtures.Attributes
     /// </summary>
     public abstract class DefaultDataAttribute : AutoDataAttribute
     {
+        private ICustomization _customization;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DefaultDataAttribute"/> class with default customization.
         /// </summary>
         /// <param name="defaultCustomization">The default <see cref="ICustomization"/> instance.</param>
         public DefaultDataAttribute(ICustomization defaultCustomization)
-            : base(new Fixture().Customize(defaultCustomization))
-        { }
+        {
+            _customization = defaultCustomization;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DefaultDataAttribute"/> class with default customization
@@ -27,12 +32,14 @@ namespace Bardock.UnitTesting.AutoFixture.Xunit2.Fixtures.Attributes
         /// <param name="defaultCustomization">The default <see cref="ICustomization"/> instance.</param>
         /// <param name="customizationTypes">Other <see cref="ICustomization"/> types to apply.</param>
         public DefaultDataAttribute(ICustomization defaultCustomization, params Type[] customizationTypes)
-            : this(defaultCustomization)
+            : this(new CompositeCustomization(
+                    new ICustomization[] {defaultCustomization}.Concat(customizationTypes.Select(t => (ICustomization)Activator.CreateInstance(t, null)))))
+        { }
+
+        public override IEnumerable<object[]> GetData(MethodInfo methodUnderTest)
         {
-            this.Fixture.Customize(
-                new CompositeCustomization(
-                    customizationTypes.Select(t =>
-                        (ICustomization)Activator.CreateInstance(t, null))));
+            this.Fixture.Customize(_customization);
+            return base.GetData(methodUnderTest);
         }
     }
 }

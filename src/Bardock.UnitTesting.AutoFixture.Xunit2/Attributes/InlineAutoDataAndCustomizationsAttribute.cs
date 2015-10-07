@@ -18,22 +18,16 @@ namespace Bardock.UnitTesting.AutoFixture.Xunit2.Attributes
         /// <param name="autoDataAttribute">The <see cref="AutoDataAttribute"/> instance that provides auto-generated data specimens.</param>
         /// <param name="valuesAndCustomizationTypes">An array of inline values and customization types to be applied.</param>
         public InlineAutoDataAndCustomizationsAttribute(
-            AutoDataAttribute autoDataAttribute,
+            Func<Type[], AutoDataAttribute> autoDataAttributeFactoryFunc,
             params object[] valuesAndCustomizationTypes)
             : base(
-                autoDataAttribute,
+                autoDataAttributeFactoryFunc(
+                    valuesAndCustomizationTypes
+                        .Where(ct => IsCustomizationType(ct))
+                        .Cast<Type>()
+                        .ToArray()),
                 values: valuesAndCustomizationTypes.Where(x => !IsCustomizationType(x)).ToArray())
-        {
-            var customizations = valuesAndCustomizationTypes
-                .Select(x => ToCustomizationTypeOrDefault(x))
-                .Where(ct => ct != null)
-                .Select(ct => (ICustomization)Activator.CreateInstance(ct, null));
-
-            foreach (var c in customizations)
-            {
-                this.AutoDataAttribute.Fixture.Customize(c);
-            }
-        }
+        { }
 
         /// <summary>
         /// Determines whether the specified object is a <see cref="ICustomization"/> type.

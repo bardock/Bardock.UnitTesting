@@ -5,8 +5,7 @@ namespace Bardock.UnitTesting.Samples.Fixtures.Attributes
     internal class InlineDefaultDataAttribute : InlineAutoDataAndCustomizationsAttribute
     {
         public InlineDefaultDataAttribute(params object[] valuesAndCustomizationTypes)
-            : base(new DefaultDataAttribute(), valuesAndCustomizationTypes)
-        {
-        }
+            : base(ct => new DefaultDataAttribute(ct), valuesAndCustomizationTypes)
+        { }
     }
 }
