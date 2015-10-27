@@ -1,9 +1,9 @@
-﻿using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.Xunit2;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.Xunit2;
 
 namespace Bardock.UnitTesting.AutoFixture.Xunit2.Fixtures.Attributes
 {
@@ -14,16 +14,8 @@ namespace Bardock.UnitTesting.AutoFixture.Xunit2.Fixtures.Attributes
     /// </summary>
     public abstract class DefaultDataAttribute : AutoDataAttribute
     {
-        private ICustomization _customization;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DefaultDataAttribute"/> class with default customization.
-        /// </summary>
-        /// <param name="defaultCustomization">The default <see cref="ICustomization"/> instance.</param>
-        public DefaultDataAttribute(ICustomization defaultCustomization)
-        {
-            _customization = defaultCustomization;
-        }
+        private ICustomization _defaultCustomization;
+        private Type[] _customizationTypes;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DefaultDataAttribute"/> class with default customization
@@ -32,13 +24,17 @@ namespace Bardock.UnitTesting.AutoFixture.Xunit2.Fixtures.Attributes
         /// <param name="defaultCustomization">The default <see cref="ICustomization"/> instance.</param>
         /// <param name="customizationTypes">Other <see cref="ICustomization"/> types to apply.</param>
         public DefaultDataAttribute(ICustomization defaultCustomization, params Type[] customizationTypes)
-            : this(new CompositeCustomization(
-                    new ICustomization[] {defaultCustomization}.Concat(customizationTypes.Select(t => (ICustomization)Activator.CreateInstance(t, null)))))
-        { }
+        {
+            _defaultCustomization = defaultCustomization;
+            _customizationTypes = customizationTypes;
+        }
 
         public override IEnumerable<object[]> GetData(MethodInfo methodUnderTest)
         {
-            this.Fixture.Customize(_customization);
+            this.Fixture.Customize(new CompositeCustomization(
+                    new ICustomization[] { _defaultCustomization }
+                        .Concat(_customizationTypes.Select(t => (ICustomization)Activator.CreateInstance(t, null)))));
+
             return base.GetData(methodUnderTest);
         }
     }
